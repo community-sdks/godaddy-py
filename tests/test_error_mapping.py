@@ -1,7 +1,7 @@
 import pytest
-from godaddy_python import Client, Config
-from godaddy_python.errors import NotFoundException, RateLimitException, ServerException, UnauthorizedException, ValidationException
-from godaddy_python.http import HttpResponse
+from godaddy import Client, Config
+from godaddy.errors import NotFoundException, RateLimitException, ServerException, UnauthorizedException, ValidationException
+from godaddy.http import HttpResponse
 from tests.support import TestTransport
 
 def make_client(transport):

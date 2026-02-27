@@ -1,4 +1,4 @@
-from godaddy_python.http import HttpResponse
+from godaddy.http import HttpResponse
 
 class TestTransport:
     def __init__(self):

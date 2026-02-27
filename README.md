@@ -11,7 +11,7 @@ pip install -e .
 ## Getting Started
 
 ```python
-from godaddy_python import Client, Config
+from godaddy import Client, Config
 
 client = Client(Config(api_key="your-api-key", api_secret="your-api-secret"))
 response = client.domains().tlds()

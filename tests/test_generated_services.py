@@ -1,5 +1,5 @@
-from godaddy_python import Client, Config
-from godaddy_python.http import HttpResponse
+from godaddy import Client, Config
+from godaddy.http import HttpResponse
 from tests.support import TestTransport
 
 def test_every_service_method_builds_a_request():
