@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: community-sdks-godaddy
-Version: 1.0.1
+Version: 1.0.2
 Summary: Community GoDaddy SDK for Python
 Author: Sasa Orasanin
 License: MIT
@@ -27,7 +27,7 @@ Community-maintained Python SDK for the GoDaddy APIs. The SDK exposes one servic
 ## Installation
 
 ```bash
-pip install godaddy-python
+pip install community-sdks-godaddy
 ```
 
 ## Configuration
