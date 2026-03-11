@@ -1,12 +1,12 @@
 Metadata-Version: 2.4
 Name: community-sdks-godaddy
-Version: 1.0.0
+Version: 1.0.1
 Summary: Community GoDaddy SDK for Python
 Author: Sasa Orasanin
 License: MIT
-Project-URL: Homepage, https://github.com/community-sdks/godaddy-python
-Project-URL: Repository, https://github.com/community-sdks/godaddy-python
-Project-URL: Issues, https://github.com/community-sdks/godaddy-python/issues
+Project-URL: Homepage, https://github.com/community-sdks/godaddy-py
+Project-URL: Repository, https://github.com/community-sdks/godaddy-py
+Project-URL: Issues, https://github.com/community-sdks/godaddy-py/issues
 Keywords: godaddy,sdk,python,domains,api
 Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers

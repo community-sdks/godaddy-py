@@ -5,7 +5,7 @@ Community-maintained Python SDK for the GoDaddy APIs. The SDK exposes one servic
 ## Installation
 
 ```bash
-pip install godaddy-python
+pip install community-sdks-godaddy
 ```
 
 ## Configuration
