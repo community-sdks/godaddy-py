@@ -10,7 +10,6 @@ pip install community-sdks-godaddy
 
 ## Configuration
 
-
 ```python
 from godaddy import Client, Config
 
