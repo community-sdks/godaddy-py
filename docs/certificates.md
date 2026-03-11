@@ -1,348 +1,590 @@
 # CertificatesService
 
-SSL certificate purchase, validation, lifecycle, and revocation endpoints.
-
 ## Accessor
 
 ```python
 service = client.certificates()
 ```
 
-## Endpoints
+## Method Index
+
+- `certificate_create`: `CertificateCreateResponse`
+- `certificate_validate`: `CertificateValidateResponse`
+- `certificate_get`: `CertificateGetResponse`
+- `certificate_action_retrieve`: `CertificateActionRetrieveResponse`
+- `certificate_resend_email`: `CertificateResendEmailResponse`
+- `certificate_alternate_email_address`: `CertificateAlternateEmailAddressResponse`
+- `certificate_resend_email_address`: `CertificateResendEmailAddressResponse`
+- `certificate_email_history`: `CertificateEmailHistoryResponse`
+- `certificate_callback_get`: `CertificateCallbackGetResponse`
+- `certificate_callback_replace`: `CertificateCallbackReplaceResponse`
+- `certificate_callback_delete`: `CertificateCallbackDeleteResponse`
+- `certificate_cancel`: `CertificateCancelResponse`
+- `certificate_download`: `CertificateDownloadResponse`
+- `certificate_reissue`: `CertificateReissueResponse`
+- `certificate_renew`: `CertificateRenewResponse`
+- `certificate_revoke`: `CertificateRevokeResponse`
+- `certificate_siteseal_get`: `CertificateSitesealGetResponse`
+- `certificate_verifydomaincontrol`: `CertificateVerifydomaincontrolResponse`
+- `certificate_get_entitlement`: `CertificateGetEntitlementResponse`
+- `certificate_create`: `CertificateCreateResponse`
+- `certificate_download_entitlement`: `CertificateDownloadEntitlementResponse`
+- `get_customer_certificates_by_customer_id`: `GetCustomerCertificatesByCustomerIdResponse`
+- `get_certificate_detail_by_cert_identifier`: `GetCertificateDetailByCertIdentifierResponse`
+- `get_domain_information_by_certificate_id`: `GetDomainInformationByCertificateIdResponse`
+- `get_domain_details_by_domain`: `GetDomainDetailsByDomainResponse`
+- `get_acme_external_account_binding`: `GetAcmeExternalAccountBindingResponse`
+- `retrieve_ssl_by_domain_reseller`: `RetrieveSslByDomainResellerResponse`
+- `retrieve_ssl_by_domain_subscription_reseller`: `RetrieveSslByDomainSubscriptionResellerResponse`
 
 ### certificate_create
 
-Calls `POST /v1/certificates`.
+Returns: `CertificateCreateResponse`
 
 ```python
-response = client.certificates().certificate_create({'sample': True}, 'header-value')
+from godaddy.dto.certificates.requests import CertificateCreateRequest
+request = CertificateCreateRequest(
+    x_market_id='abc123',
+    certificate_create='value',
+)
+response = client.certificates().certificate_create(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_validate
 
-Calls `POST /v1/certificates/validate`.
+Returns: `CertificateValidateResponse`
 
 ```python
-response = client.certificates().certificate_validate({'sample': True}, 'header-value')
+from godaddy.dto.certificates.requests import CertificateValidateRequest
+request = CertificateValidateRequest(
+    x_market_id='abc123',
+    certificate_create='value',
+)
+response = client.certificates().certificate_validate(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_get
 
-Calls `GET /v1/certificates/{certificateId}`.
+Returns: `CertificateGetResponse`
 
 ```python
-response = client.certificates().certificate_get('sample')
+from godaddy.dto.certificates.requests import CertificateGetRequest
+request = CertificateGetRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_get(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_action_retrieve
 
-Calls `GET /v1/certificates/{certificateId}/actions`.
+Returns: `CertificateActionRetrieveResponse`
 
 ```python
-response = client.certificates().certificate_action_retrieve('sample')
+from godaddy.dto.certificates.requests import CertificateActionRetrieveRequest
+request = CertificateActionRetrieveRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_action_retrieve(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_resend_email
 
-Calls `POST /v1/certificates/{certificateId}/email/{emailId}/resend`.
+Returns: `CertificateResendEmailResponse`
 
 ```python
-response = client.certificates().certificate_resend_email('sample', 'sample')
+from godaddy.dto.certificates.requests import CertificateResendEmailRequest
+request = CertificateResendEmailRequest(
+    certificate_id='abc123',
+    email_id='admin@example.com',
+)
+response = client.certificates().certificate_resend_email(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_alternate_email_address
 
-Calls `POST /v1/certificates/{certificateId}/email/resend/{emailAddress}`.
+Returns: `CertificateAlternateEmailAddressResponse`
 
 ```python
-response = client.certificates().certificate_alternate_email_address('sample', ['sample'])
+from godaddy.dto.certificates.requests import CertificateAlternateEmailAddressRequest
+request = CertificateAlternateEmailAddressRequest(
+    certificate_id='abc123',
+    email_address='admin@example.com',
+)
+response = client.certificates().certificate_alternate_email_address(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_resend_email_address
 
-Calls `POST /v1/certificates/{certificateId}/email/{emailId}/resend/{emailAddress}`.
+Returns: `CertificateResendEmailAddressResponse`
 
 ```python
-response = client.certificates().certificate_resend_email_address('sample', 'sample', ['sample'])
+from godaddy.dto.certificates.requests import CertificateResendEmailAddressRequest
+request = CertificateResendEmailAddressRequest(
+    certificate_id='abc123',
+    email_id='admin@example.com',
+    email_address='admin@example.com',
+)
+response = client.certificates().certificate_resend_email_address(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_email_history
 
-Calls `GET /v1/certificates/{certificateId}/email/history`.
+Returns: `CertificateEmailHistoryResponse`
 
 ```python
-response = client.certificates().certificate_email_history('sample')
+from godaddy.dto.certificates.requests import CertificateEmailHistoryRequest
+request = CertificateEmailHistoryRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_email_history(request)
 ```
 
 ```json
-{}
-```
-
-### certificate_callback_delete
-
-Calls `DELETE /v1/certificates/{certificateId}/callback`.
-
-```python
-response = client.certificates().certificate_callback_delete('sample')
-```
-
-```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_callback_get
 
-Calls `GET /v1/certificates/{certificateId}/callback`.
+Returns: `CertificateCallbackGetResponse`
 
 ```python
-response = client.certificates().certificate_callback_get('sample')
+from godaddy.dto.certificates.requests import CertificateCallbackGetRequest
+request = CertificateCallbackGetRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_callback_get(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_callback_replace
 
-Calls `PUT /v1/certificates/{certificateId}/callback`.
+Returns: `CertificateCallbackReplaceResponse`
 
 ```python
-response = client.certificates().certificate_callback_replace('sample', 'sample')
+from godaddy.dto.certificates.requests import CertificateCallbackReplaceRequest
+request = CertificateCallbackReplaceRequest(
+    certificate_id='abc123',
+    callback_url='value',
+)
+response = client.certificates().certificate_callback_replace(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
+```
+
+### certificate_callback_delete
+
+Returns: `CertificateCallbackDeleteResponse`
+
+```python
+from godaddy.dto.certificates.requests import CertificateCallbackDeleteRequest
+request = CertificateCallbackDeleteRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_callback_delete(request)
+```
+
+```json
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_cancel
 
-Calls `POST /v1/certificates/{certificateId}/cancel`.
+Returns: `CertificateCancelResponse`
 
 ```python
-response = client.certificates().certificate_cancel('sample')
+from godaddy.dto.certificates.requests import CertificateCancelRequest
+request = CertificateCancelRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_cancel(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_download
 
-Calls `GET /v1/certificates/{certificateId}/download`.
+Returns: `CertificateDownloadResponse`
 
 ```python
-response = client.certificates().certificate_download('sample')
+from godaddy.dto.certificates.requests import CertificateDownloadRequest
+request = CertificateDownloadRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_download(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_reissue
 
-Calls `POST /v1/certificates/{certificateId}/reissue`.
+Returns: `CertificateReissueResponse`
 
 ```python
-response = client.certificates().certificate_reissue('sample', {'sample': True})
+from godaddy.dto.certificates.requests import CertificateReissueRequest
+request = CertificateReissueRequest(
+    certificate_id='abc123',
+    reissue_create='value',
+)
+response = client.certificates().certificate_reissue(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_renew
 
-Calls `POST /v1/certificates/{certificateId}/renew`.
+Returns: `CertificateRenewResponse`
 
 ```python
-response = client.certificates().certificate_renew('sample', {'sample': True})
+from godaddy.dto.certificates.requests import CertificateRenewRequest
+request = CertificateRenewRequest(
+    certificate_id='abc123',
+    renew_create='value',
+)
+response = client.certificates().certificate_renew(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_revoke
 
-Calls `POST /v1/certificates/{certificateId}/revoke`.
+Returns: `CertificateRevokeResponse`
 
 ```python
-response = client.certificates().certificate_revoke('sample', {'sample': True})
+from godaddy.dto.certificates.requests import CertificateRevokeRequest
+request = CertificateRevokeRequest(
+    certificate_id='abc123',
+    certificate_revoke='value',
+)
+response = client.certificates().certificate_revoke(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_siteseal_get
 
-Calls `GET /v1/certificates/{certificateId}/siteSeal`.
+Returns: `CertificateSitesealGetResponse`
 
 ```python
-response = client.certificates().certificate_siteseal_get('sample', 'sample', 'sample')
+from godaddy.dto.certificates.requests import CertificateSitesealGetRequest
+request = CertificateSitesealGetRequest(
+    certificate_id='abc123',
+    theme='value',
+    locale='value',
+)
+response = client.certificates().certificate_siteseal_get(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_verifydomaincontrol
 
-Calls `POST /v1/certificates/{certificateId}/verifyDomainControl`.
+Returns: `CertificateVerifydomaincontrolResponse`
 
 ```python
-response = client.certificates().certificate_verifydomaincontrol('sample')
+from godaddy.dto.certificates.requests import CertificateVerifydomaincontrolRequest
+request = CertificateVerifydomaincontrolRequest(
+    certificate_id='abc123',
+)
+response = client.certificates().certificate_verifydomaincontrol(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_get_entitlement
 
-Calls `GET /v2/certificates`.
+Returns: `CertificateGetEntitlementResponse`
 
 ```python
-response = client.certificates().certificate_get_entitlement('sample', True)
+from godaddy.dto.certificates.requests import CertificateGetEntitlementRequest
+request = CertificateGetEntitlementRequest(
+    entitlement_id='abc123',
+    latest=True,
+)
+response = client.certificates().certificate_get_entitlement(request)
 ```
 
 ```json
-{}
+[]
 ```
 
-### certificate_create_v2
+### certificate_create
 
-Calls `POST /v2/certificates`.
+Returns: `CertificateCreateResponse`
 
 ```python
-response = client.certificates().certificate_create_v2({'sample': True}, 'header-value')
+from godaddy.dto.certificates.requests import CertificateCreateRequest
+request = CertificateCreateRequest(
+    x_market_id='abc123',
+    subscription_certificate_create='value',
+)
+response = client.certificates().certificate_create(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### certificate_download_entitlement
 
-Calls `GET /v2/certificates/download`.
+Returns: `CertificateDownloadEntitlementResponse`
 
 ```python
-response = client.certificates().certificate_download_entitlement('sample')
+from godaddy.dto.certificates.requests import CertificateDownloadEntitlementRequest
+request = CertificateDownloadEntitlementRequest(
+    entitlement_id='abc123',
+)
+response = client.certificates().certificate_download_entitlement(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_customer_certificates_by_customer_id
 
-Calls `GET /v2/customers/{customerId}/certificates`.
+Returns: `GetCustomerCertificatesByCustomerIdResponse`
 
 ```python
-response = client.certificates().get_customer_certificates_by_customer_id('sample', 1, 1)
+from godaddy.dto.certificates.requests import GetCustomerCertificatesByCustomerIdRequest
+request = GetCustomerCertificatesByCustomerIdRequest(
+    undefined='value',
+    undefined='value',
+    undefined='value',
+)
+response = client.certificates().get_customer_certificates_by_customer_id(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_certificate_detail_by_cert_identifier
 
-Calls `GET /v2/customers/{customerId}/certificates/{certificateId}`.
+Returns: `GetCertificateDetailByCertIdentifierResponse`
 
 ```python
-response = client.certificates().get_certificate_detail_by_cert_identifier('sample', 'sample')
+from godaddy.dto.certificates.requests import GetCertificateDetailByCertIdentifierRequest
+request = GetCertificateDetailByCertIdentifierRequest(
+    undefined='value',
+    undefined='value',
+)
+response = client.certificates().get_certificate_detail_by_cert_identifier(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_domain_information_by_certificate_id
 
-Calls `GET /v2/customers/{customerId}/certificates/{certificateId}/domainVerifications`.
+Returns: `GetDomainInformationByCertificateIdResponse`
 
 ```python
-response = client.certificates().get_domain_information_by_certificate_id('sample', 'sample')
+from godaddy.dto.certificates.requests import GetDomainInformationByCertificateIdRequest
+request = GetDomainInformationByCertificateIdRequest(
+    undefined='value',
+    undefined='value',
+)
+response = client.certificates().get_domain_information_by_certificate_id(request)
 ```
 
 ```json
-{}
+[]
 ```
 
 ### get_domain_details_by_domain
 
-Calls `GET /v2/customers/{customerId}/certificates/{certificateId}/domainVerifications/{domain}`.
+Returns: `GetDomainDetailsByDomainResponse`
 
 ```python
-response = client.certificates().get_domain_details_by_domain('sample', 'sample', 'sample')
+from godaddy.dto.certificates.requests import GetDomainDetailsByDomainRequest
+request = GetDomainDetailsByDomainRequest(
+    undefined='value',
+    undefined='value',
+    undefined='value',
+)
+response = client.certificates().get_domain_details_by_domain(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_acme_external_account_binding
 
-Calls `GET /v2/customers/{customerId}/certificates/acme/externalAccountBinding`.
+Returns: `GetAcmeExternalAccountBindingResponse`
 
 ```python
-response = client.certificates().get_acme_external_account_binding('sample')
+from godaddy.dto.certificates.requests import GetAcmeExternalAccountBindingRequest
+request = GetAcmeExternalAccountBindingRequest(
+    undefined='value',
+)
+response = client.certificates().get_acme_external_account_binding(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### retrieve_ssl_by_domain_reseller
 
-Calls `GET /v2/certificates/subscriptions/search`.
+Returns: `RetrieveSslByDomainResellerResponse`
 
 ```python
-response = client.certificates().retrieve_ssl_by_domain_reseller(1, 1, 'sample', ['sample'], 'sample', 'sample')
+from godaddy.dto.certificates.requests import RetrieveSslByDomainResellerRequest
+request = RetrieveSslByDomainResellerRequest(
+    undefined='value',
+    undefined='value',
+    undefined='value',
+    undefined='value',
+)
+response = client.certificates().retrieve_ssl_by_domain_reseller(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### retrieve_ssl_by_domain_subscription_reseller
 
-Calls `GET /v2/certificates/subscription/{guid}`.
+Returns: `RetrieveSslByDomainSubscriptionResellerResponse`
 
 ```python
-response = client.certificates().retrieve_ssl_by_domain_subscription_reseller('sample', 1, 1, 'sample', ['sample'], 'sample', 'sample')
+from godaddy.dto.certificates.requests import RetrieveSslByDomainSubscriptionResellerRequest
+request = RetrieveSslByDomainSubscriptionResellerRequest(
+    undefined='value',
+    undefined='value',
+    undefined='value',
+    undefined='value',
+)
+response = client.certificates().retrieve_ssl_by_domain_subscription_reseller(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
-

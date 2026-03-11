@@ -1,287 +1,364 @@
-from .abstract_service import AbstractService
+from godaddy.errors import ApiException
+from godaddy.errors import CertificatesApiException, CertificatesBadRequestException, CertificatesConflictException, CertificatesForbiddenException, CertificatesNotFoundException, CertificatesRateLimitException, CertificatesServerException, CertificatesUnauthorizedException, CertificatesUnprocessableEntityException
+from godaddy.services.abstract_service import AbstractService
+from godaddy.dto.certificates.requests import CertificateCreateRequest, CertificateValidateRequest, CertificateGetRequest, CertificateActionRetrieveRequest, CertificateResendEmailRequest, CertificateAlternateEmailAddressRequest, CertificateResendEmailAddressRequest, CertificateEmailHistoryRequest, CertificateCallbackGetRequest, CertificateCallbackReplaceRequest, CertificateCallbackDeleteRequest, CertificateCancelRequest, CertificateDownloadRequest, CertificateReissueRequest, CertificateRenewRequest, CertificateRevokeRequest, CertificateSitesealGetRequest, CertificateVerifydomaincontrolRequest, CertificateGetEntitlementRequest, CertificateCreateRequest, CertificateDownloadEntitlementRequest, GetCustomerCertificatesByCustomerIdRequest, GetCertificateDetailByCertIdentifierRequest, GetDomainInformationByCertificateIdRequest, GetDomainDetailsByDomainRequest, GetAcmeExternalAccountBindingRequest, RetrieveSslByDomainResellerRequest, RetrieveSslByDomainSubscriptionResellerRequest
+from godaddy.dto.certificates.responses import CertificateCreateResponse, CertificateValidateResponse, CertificateGetResponse, CertificateActionRetrieveResponse, CertificateResendEmailResponse, CertificateAlternateEmailAddressResponse, CertificateResendEmailAddressResponse, CertificateEmailHistoryResponse, CertificateCallbackGetResponse, CertificateCallbackReplaceResponse, CertificateCallbackDeleteResponse, CertificateCancelResponse, CertificateDownloadResponse, CertificateReissueResponse, CertificateRenewResponse, CertificateRevokeResponse, CertificateSitesealGetResponse, CertificateVerifydomaincontrolResponse, CertificateGetEntitlementResponse, CertificateCreateResponse, CertificateDownloadEntitlementResponse, GetCustomerCertificatesByCustomerIdResponse, GetCertificateDetailByCertIdentifierResponse, GetDomainInformationByCertificateIdResponse, GetDomainDetailsByDomainResponse, GetAcmeExternalAccountBindingResponse, RetrieveSslByDomainResellerResponse, RetrieveSslByDomainSubscriptionResellerResponse
 
 class CertificatesService(AbstractService):
-    BASE_URL = "https://api.ote-godaddy.com"
-
     def __init__(self, client):
-        super().__init__(client, self.BASE_URL)
+        super().__init__(client, "certificates")
 
-    def certificate_create(self, certificate_create, x_market_id=None, ):
-        return self.call(
+    def certificate_create(self, request: CertificateCreateRequest | None = None) -> CertificateCreateResponse:
+        request = request or CertificateCreateRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates",
-            [],
-            [],
-            [("X-Market-Id", x_market_id)],
-            certificate_create,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateCreateResponse.from_mixed(response)
 
-    def certificate_validate(self, certificate_create, x_market_id=None, ):
-        return self.call(
+    def certificate_validate(self, request: CertificateValidateRequest | None = None) -> CertificateValidateResponse:
+        request = request or CertificateValidateRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/validate",
-            [],
-            [],
-            [("X-Market-Id", x_market_id)],
-            certificate_create,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateValidateResponse.from_mixed(response)
 
-    def certificate_get(self, certificate_id, ):
-        return self.call(
+    def certificate_get(self, request: CertificateGetRequest | None = None) -> CertificateGetResponse:
+        request = request or CertificateGetRequest()
+        response = self._execute(
             "GET",
             "/v1/certificates/{certificateId}",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateGetResponse.from_mixed(response)
 
-    def certificate_action_retrieve(self, certificate_id, ):
-        return self.call(
+    def certificate_action_retrieve(self, request: CertificateActionRetrieveRequest | None = None) -> CertificateActionRetrieveResponse:
+        request = request or CertificateActionRetrieveRequest()
+        response = self._execute(
             "GET",
             "/v1/certificates/{certificateId}/actions",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateActionRetrieveResponse.from_mixed(response)
 
-    def certificate_resend_email(self, certificate_id, email_id, ):
-        return self.call(
+    def certificate_resend_email(self, request: CertificateResendEmailRequest | None = None) -> CertificateResendEmailResponse:
+        request = request or CertificateResendEmailRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/email/{emailId}/resend",
-            [("certificateId", certificate_id), ("emailId", email_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateResendEmailResponse.from_mixed(response)
 
-    def certificate_alternate_email_address(self, certificate_id, email_address, ):
-        return self.call(
+    def certificate_alternate_email_address(self, request: CertificateAlternateEmailAddressRequest | None = None) -> CertificateAlternateEmailAddressResponse:
+        request = request or CertificateAlternateEmailAddressRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/email/resend/{emailAddress}",
-            [("certificateId", certificate_id), ("emailAddress", email_address)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateAlternateEmailAddressResponse.from_mixed(response)
 
-    def certificate_resend_email_address(self, certificate_id, email_id, email_address, ):
-        return self.call(
+    def certificate_resend_email_address(self, request: CertificateResendEmailAddressRequest | None = None) -> CertificateResendEmailAddressResponse:
+        request = request or CertificateResendEmailAddressRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/email/{emailId}/resend/{emailAddress}",
-            [("certificateId", certificate_id), ("emailId", email_id), ("emailAddress", email_address)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateResendEmailAddressResponse.from_mixed(response)
 
-    def certificate_email_history(self, certificate_id, ):
-        return self.call(
+    def certificate_email_history(self, request: CertificateEmailHistoryRequest | None = None) -> CertificateEmailHistoryResponse:
+        request = request or CertificateEmailHistoryRequest()
+        response = self._execute(
             "GET",
             "/v1/certificates/{certificateId}/email/history",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateEmailHistoryResponse.from_mixed(response)
 
-    def certificate_callback_delete(self, certificate_id, ):
-        return self.call(
-            "DELETE",
-            "/v1/certificates/{certificateId}/callback",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
-        )
-
-    def certificate_callback_get(self, certificate_id, ):
-        return self.call(
+    def certificate_callback_get(self, request: CertificateCallbackGetRequest | None = None) -> CertificateCallbackGetResponse:
+        request = request or CertificateCallbackGetRequest()
+        response = self._execute(
             "GET",
             "/v1/certificates/{certificateId}/callback",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateCallbackGetResponse.from_mixed(response)
 
-    def certificate_callback_replace(self, certificate_id, callback_url, ):
-        return self.call(
+    def certificate_callback_replace(self, request: CertificateCallbackReplaceRequest | None = None) -> CertificateCallbackReplaceResponse:
+        request = request or CertificateCallbackReplaceRequest()
+        response = self._execute(
             "PUT",
             "/v1/certificates/{certificateId}/callback",
-            [("certificateId", certificate_id)],
-            [("callbackUrl", callback_url)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateCallbackReplaceResponse.from_mixed(response)
 
-    def certificate_cancel(self, certificate_id, ):
-        return self.call(
+    def certificate_callback_delete(self, request: CertificateCallbackDeleteRequest | None = None) -> CertificateCallbackDeleteResponse:
+        request = request or CertificateCallbackDeleteRequest()
+        response = self._execute(
+            "DELETE",
+            "/v1/certificates/{certificateId}/callback",
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
+        )
+        return CertificateCallbackDeleteResponse.from_mixed(response)
+
+    def certificate_cancel(self, request: CertificateCancelRequest | None = None) -> CertificateCancelResponse:
+        request = request or CertificateCancelRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/cancel",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateCancelResponse.from_mixed(response)
 
-    def certificate_download(self, certificate_id, ):
-        return self.call(
+    def certificate_download(self, request: CertificateDownloadRequest | None = None) -> CertificateDownloadResponse:
+        request = request or CertificateDownloadRequest()
+        response = self._execute(
             "GET",
             "/v1/certificates/{certificateId}/download",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateDownloadResponse.from_mixed(response)
 
-    def certificate_reissue(self, certificate_id, reissue_create, ):
-        return self.call(
+    def certificate_reissue(self, request: CertificateReissueRequest | None = None) -> CertificateReissueResponse:
+        request = request or CertificateReissueRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/reissue",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            reissue_create,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateReissueResponse.from_mixed(response)
 
-    def certificate_renew(self, certificate_id, renew_create, ):
-        return self.call(
+    def certificate_renew(self, request: CertificateRenewRequest | None = None) -> CertificateRenewResponse:
+        request = request or CertificateRenewRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/renew",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            renew_create,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateRenewResponse.from_mixed(response)
 
-    def certificate_revoke(self, certificate_id, certificate_revoke, ):
-        return self.call(
+    def certificate_revoke(self, request: CertificateRevokeRequest | None = None) -> CertificateRevokeResponse:
+        request = request or CertificateRevokeRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/revoke",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            certificate_revoke,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateRevokeResponse.from_mixed(response)
 
-    def certificate_siteseal_get(self, certificate_id, theme=None, locale=None, ):
-        return self.call(
+    def certificate_siteseal_get(self, request: CertificateSitesealGetRequest | None = None) -> CertificateSitesealGetResponse:
+        request = request or CertificateSitesealGetRequest()
+        response = self._execute(
             "GET",
             "/v1/certificates/{certificateId}/siteSeal",
-            [("certificateId", certificate_id)],
-            [("theme", theme), ("locale", locale)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateSitesealGetResponse.from_mixed(response)
 
-    def certificate_verifydomaincontrol(self, certificate_id, ):
-        return self.call(
+    def certificate_verifydomaincontrol(self, request: CertificateVerifydomaincontrolRequest | None = None) -> CertificateVerifydomaincontrolResponse:
+        request = request or CertificateVerifydomaincontrolRequest()
+        response = self._execute(
             "POST",
             "/v1/certificates/{certificateId}/verifyDomainControl",
-            [("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateVerifydomaincontrolResponse.from_mixed(response)
 
-    def certificate_get_entitlement(self, entitlement_id, latest=None, ):
-        return self.call(
+    def certificate_get_entitlement(self, request: CertificateGetEntitlementRequest | None = None) -> CertificateGetEntitlementResponse:
+        request = request or CertificateGetEntitlementRequest()
+        response = self._execute(
             "GET",
             "/v2/certificates",
-            [],
-            [("entitlementId", entitlement_id), ("latest", latest)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateGetEntitlementResponse.from_mixed(response)
 
-    def certificate_create_v2(self, subscription_certificate_create, x_market_id=None, ):
-        return self.call(
+    def certificate_create(self, request: CertificateCreateRequest | None = None) -> CertificateCreateResponse:
+        request = request or CertificateCreateRequest()
+        response = self._execute(
             "POST",
             "/v2/certificates",
-            [],
-            [],
-            [("X-Market-Id", x_market_id)],
-            subscription_certificate_create,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateCreateResponse.from_mixed(response)
 
-    def certificate_download_entitlement(self, entitlement_id, ):
-        return self.call(
+    def certificate_download_entitlement(self, request: CertificateDownloadEntitlementRequest | None = None) -> CertificateDownloadEntitlementResponse:
+        request = request or CertificateDownloadEntitlementRequest()
+        response = self._execute(
             "GET",
             "/v2/certificates/download",
-            [],
-            [("entitlementId", entitlement_id)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CertificateDownloadEntitlementResponse.from_mixed(response)
 
-    def get_customer_certificates_by_customer_id(self, customer_id, offset=None, limit=None, ):
-        return self.call(
+    def get_customer_certificates_by_customer_id(self, request: GetCustomerCertificatesByCustomerIdRequest | None = None) -> GetCustomerCertificatesByCustomerIdResponse:
+        request = request or GetCustomerCertificatesByCustomerIdRequest()
+        response = self._execute(
             "GET",
             "/v2/customers/{customerId}/certificates",
-            [("customerId", customer_id)],
-            [("offset", offset), ("limit", limit)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetCustomerCertificatesByCustomerIdResponse.from_mixed(response)
 
-    def get_certificate_detail_by_cert_identifier(self, customer_id, certificate_id, ):
-        return self.call(
+    def get_certificate_detail_by_cert_identifier(self, request: GetCertificateDetailByCertIdentifierRequest | None = None) -> GetCertificateDetailByCertIdentifierResponse:
+        request = request or GetCertificateDetailByCertIdentifierRequest()
+        response = self._execute(
             "GET",
             "/v2/customers/{customerId}/certificates/{certificateId}",
-            [("customerId", customer_id), ("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetCertificateDetailByCertIdentifierResponse.from_mixed(response)
 
-    def get_domain_information_by_certificate_id(self, customer_id, certificate_id, ):
-        return self.call(
+    def get_domain_information_by_certificate_id(self, request: GetDomainInformationByCertificateIdRequest | None = None) -> GetDomainInformationByCertificateIdResponse:
+        request = request or GetDomainInformationByCertificateIdRequest()
+        response = self._execute(
             "GET",
             "/v2/customers/{customerId}/certificates/{certificateId}/domainVerifications",
-            [("customerId", customer_id), ("certificateId", certificate_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetDomainInformationByCertificateIdResponse.from_mixed(response)
 
-    def get_domain_details_by_domain(self, customer_id, certificate_id, domain, ):
-        return self.call(
+    def get_domain_details_by_domain(self, request: GetDomainDetailsByDomainRequest | None = None) -> GetDomainDetailsByDomainResponse:
+        request = request or GetDomainDetailsByDomainRequest()
+        response = self._execute(
             "GET",
             "/v2/customers/{customerId}/certificates/{certificateId}/domainVerifications/{domain}",
-            [("customerId", customer_id), ("certificateId", certificate_id), ("domain", domain)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetDomainDetailsByDomainResponse.from_mixed(response)
 
-    def get_acme_external_account_binding(self, customer_id, ):
-        return self.call(
+    def get_acme_external_account_binding(self, request: GetAcmeExternalAccountBindingRequest | None = None) -> GetAcmeExternalAccountBindingResponse:
+        request = request or GetAcmeExternalAccountBindingRequest()
+        response = self._execute(
             "GET",
             "/v2/customers/{customerId}/certificates/acme/externalAccountBinding",
-            [("customerId", customer_id)],
-            [],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetAcmeExternalAccountBindingResponse.from_mixed(response)
 
-    def retrieve_ssl_by_domain_reseller(self, page_size=None, page=None, domain=None, status=None, type=None, validation=None, ):
-        return self.call(
+    def retrieve_ssl_by_domain_reseller(self, request: RetrieveSslByDomainResellerRequest | None = None) -> RetrieveSslByDomainResellerResponse:
+        request = request or RetrieveSslByDomainResellerRequest()
+        response = self._execute(
             "GET",
             "/v2/certificates/subscriptions/search",
-            [],
-            [("pageSize", page_size), ("page", page), ("domain", domain), ("status", status), ("type", type), ("validation", validation)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return RetrieveSslByDomainResellerResponse.from_mixed(response)
 
-    def retrieve_ssl_by_domain_subscription_reseller(self, guid, page_size=None, page=None, domain=None, status=None, type=None, validation=None, ):
-        return self.call(
+    def retrieve_ssl_by_domain_subscription_reseller(self, request: RetrieveSslByDomainSubscriptionResellerRequest | None = None) -> RetrieveSslByDomainSubscriptionResellerResponse:
+        request = request or RetrieveSslByDomainSubscriptionResellerRequest()
+        response = self._execute(
             "GET",
             "/v2/certificates/subscription/{guid}",
-            [("guid", guid)],
-            [("pageSize", page_size), ("page", page), ("domain", domain), ("status", status), ("type", type), ("validation", validation)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return RetrieveSslByDomainSubscriptionResellerResponse.from_mixed(response)
+
+    def _map_exception(self, exception: ApiException) -> ApiException:
+        if exception.status_code == 400:
+            return CertificatesBadRequestException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 401:
+            return CertificatesUnauthorizedException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 403:
+            return CertificatesForbiddenException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 404:
+            return CertificatesNotFoundException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 409:
+            return CertificatesConflictException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 422:
+            return CertificatesUnprocessableEntityException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 429:
+            return CertificatesRateLimitException(*exception.args, error_response=exception.error_response)
+        if exception.status_code >= 500:
+            return CertificatesServerException(*exception.args, error_response=exception.error_response)
+        return CertificatesApiException(*exception.args, error_response=exception.error_response)

@@ -1,27 +1,52 @@
-from .abstract_service import AbstractService
+from godaddy.errors import ApiException
+from godaddy.errors import ParkingApiException, ParkingBadRequestException, ParkingConflictException, ParkingForbiddenException, ParkingNotFoundException, ParkingRateLimitException, ParkingServerException, ParkingUnauthorizedException, ParkingUnprocessableEntityException
+from godaddy.services.abstract_service import AbstractService
+from godaddy.dto.parking.requests import GetMetricsRequest, GetMetricsByDomainRequest
+from godaddy.dto.parking.responses import GetMetricsResponse, GetMetricsByDomainResponse
 
 class ParkingService(AbstractService):
-    BASE_URL = "https://api.ote-godaddy.com"
-
     def __init__(self, client):
-        super().__init__(client, self.BASE_URL)
+        super().__init__(client, "parking")
 
-    def get_metrics(self, customer_id, period_start_ptz=None, period_end_ptz=None, limit=None, offset=None, x_request_id=None, ):
-        return self.call(
+    def get_metrics(self, request: GetMetricsRequest | None = None) -> GetMetricsResponse:
+        request = request or GetMetricsRequest()
+        response = self._execute(
             "GET",
             "/v1/customers/{customerId}/parking/metrics",
-            [("customerId", customer_id)],
-            [("periodStartPtz", period_start_ptz), ("periodEndPtz", period_end_ptz), ("limit", limit), ("offset", offset)],
-            [("X-Request-Id", x_request_id)],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetMetricsResponse.from_mixed(response)
 
-    def get_metrics_by_domain(self, customer_id, start_date, end_date, domains=None, domain_like=None, portfolio_id=None, limit=None, offset=None, x_request_id=None, ):
-        return self.call(
+    def get_metrics_by_domain(self, request: GetMetricsByDomainRequest | None = None) -> GetMetricsByDomainResponse:
+        request = request or GetMetricsByDomainRequest()
+        response = self._execute(
             "GET",
             "/v1/customers/{customerId}/parking/metricsByDomain",
-            [("customerId", customer_id)],
-            [("startDate", start_date), ("endDate", end_date), ("domains", domains), ("domainLike", domain_like), ("portfolioId", portfolio_id), ("limit", limit), ("offset", offset)],
-            [("X-Request-Id", x_request_id)],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetMetricsByDomainResponse.from_mixed(response)
+
+    def _map_exception(self, exception: ApiException) -> ApiException:
+        if exception.status_code == 400:
+            return ParkingBadRequestException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 401:
+            return ParkingUnauthorizedException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 403:
+            return ParkingForbiddenException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 404:
+            return ParkingNotFoundException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 409:
+            return ParkingConflictException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 422:
+            return ParkingUnprocessableEntityException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 429:
+            return ParkingRateLimitException(*exception.args, error_response=exception.error_response)
+        if exception.status_code >= 500:
+            return ParkingServerException(*exception.args, error_response=exception.error_response)
+        return ParkingApiException(*exception.args, error_response=exception.error_response)

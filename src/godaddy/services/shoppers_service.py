@@ -1,67 +1,100 @@
-from .abstract_service import AbstractService
+from godaddy.errors import ApiException
+from godaddy.errors import ShoppersApiException, ShoppersBadRequestException, ShoppersConflictException, ShoppersForbiddenException, ShoppersNotFoundException, ShoppersRateLimitException, ShoppersServerException, ShoppersUnauthorizedException, ShoppersUnprocessableEntityException
+from godaddy.services.abstract_service import AbstractService
+from godaddy.dto.shoppers.requests import CreateSubaccountRequest, GetRequest, UpdateRequest, DeleteRequest, GetStatusRequest, ChangePasswordRequest
+from godaddy.dto.shoppers.responses import CreateSubaccountResponse, GetResponse, UpdateResponse, DeleteResponse, GetStatusResponse, ChangePasswordResponse
 
 class ShoppersService(AbstractService):
-    BASE_URL = "https://api.ote-godaddy.com"
-
     def __init__(self, client):
-        super().__init__(client, self.BASE_URL)
+        super().__init__(client, "shoppers")
 
-    def create_subaccount(self, subaccount, ):
-        return self.call(
+    def create_subaccount(self, request: CreateSubaccountRequest | None = None) -> CreateSubaccountResponse:
+        request = request or CreateSubaccountRequest()
+        response = self._execute(
             "POST",
             "/v1/shoppers/subaccount",
-            [],
-            [],
-            [],
-            subaccount,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return CreateSubaccountResponse.from_mixed(response)
 
-    def get(self, shopper_id, includes=None, ):
-        return self.call(
+    def get(self, request: GetRequest | None = None) -> GetResponse:
+        request = request or GetRequest()
+        response = self._execute(
             "GET",
             "/v1/shoppers/{shopperId}",
-            [("shopperId", shopper_id)],
-            [("includes", includes)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetResponse.from_mixed(response)
 
-    def update(self, shopper_id, shopper, ):
-        return self.call(
+    def update(self, request: UpdateRequest | None = None) -> UpdateResponse:
+        request = request or UpdateRequest()
+        response = self._execute(
             "POST",
             "/v1/shoppers/{shopperId}",
-            [("shopperId", shopper_id)],
-            [],
-            [],
-            shopper,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return UpdateResponse.from_mixed(response)
 
-    def delete(self, shopper_id, audit_client_ip, ):
-        return self.call(
+    def delete(self, request: DeleteRequest | None = None) -> DeleteResponse:
+        request = request or DeleteRequest()
+        response = self._execute(
             "DELETE",
             "/v1/shoppers/{shopperId}",
-            [("shopperId", shopper_id)],
-            [("auditClientIp", audit_client_ip)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return DeleteResponse.from_mixed(response)
 
-    def get_status(self, shopper_id, audit_client_ip, ):
-        return self.call(
+    def get_status(self, request: GetStatusRequest | None = None) -> GetStatusResponse:
+        request = request or GetStatusRequest()
+        response = self._execute(
             "GET",
             "/v1/shoppers/{shopperId}/status",
-            [("shopperId", shopper_id)],
-            [("auditClientIp", audit_client_ip)],
-            [],
-            None,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return GetStatusResponse.from_mixed(response)
 
-    def change_password(self, shopper_id, secret, ):
-        return self.call(
+    def change_password(self, request: ChangePasswordRequest | None = None) -> ChangePasswordResponse:
+        request = request or ChangePasswordRequest()
+        response = self._execute(
             "PUT",
             "/v1/shoppers/{shopperId}/factors/password",
-            [("shopperId", shopper_id)],
-            [],
-            [],
-            secret,
+            request.to_path_params(),
+            request.to_query_params(),
+            request.to_headers(),
+            request.to_body(),
         )
+        return ChangePasswordResponse.from_mixed(response)
+
+    def _map_exception(self, exception: ApiException) -> ApiException:
+        if exception.status_code == 400:
+            return ShoppersBadRequestException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 401:
+            return ShoppersUnauthorizedException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 403:
+            return ShoppersForbiddenException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 404:
+            return ShoppersNotFoundException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 409:
+            return ShoppersConflictException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 422:
+            return ShoppersUnprocessableEntityException(*exception.args, error_response=exception.error_response)
+        if exception.status_code == 429:
+            return ShoppersRateLimitException(*exception.args, error_response=exception.error_response)
+        if exception.status_code >= 500:
+            return ShoppersServerException(*exception.args, error_response=exception.error_response)
+        return ShoppersApiException(*exception.args, error_response=exception.error_response)

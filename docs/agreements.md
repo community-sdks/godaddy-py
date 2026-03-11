@@ -1,24 +1,29 @@
 # AgreementsService
 
-Agreement retrieval endpoints for legal terms and consent workflows.
-
 ## Accessor
 
 ```python
 service = client.agreements()
 ```
 
-## Endpoints
+## Method Index
+
+- `get`: `GetResponse`
 
 ### get
 
-Calls `GET /v1/agreements`.
+Returns: `GetResponse`
 
 ```python
-response = client.agreements().get(['sample'], 'header-value', 'header-value')
+from godaddy.dto.agreements.requests import GetRequest
+request = GetRequest(
+    x_private_label_id=1,
+    x_market_id='abc123',
+    keys=["value"],
+)
+response = client.agreements().get(request)
 ```
 
 ```json
-{}
+[]
 ```
-

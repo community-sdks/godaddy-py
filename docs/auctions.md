@@ -1,24 +1,28 @@
 # AuctionsService
 
-Auction listing discovery endpoints for GoDaddy Auctions inventory.
-
 ## Accessor
 
 ```python
 service = client.auctions()
 ```
 
-## Endpoints
+## Method Index
+
+- `place_bids`: `PlaceBidsResponse`
 
 ### place_bids
 
-Calls `POST /v1/customers/{customerId}/aftermarket/listings/bids`.
+Returns: `PlaceBidsResponse`
 
 ```python
-response = client.auctions().place_bids('sample', {'sample': True})
+from godaddy.dto.auctions.requests import PlaceBidsRequest
+request = PlaceBidsRequest(
+    customer_id='123456',
+    request_body=["value"],
+)
+response = client.auctions().place_bids(request)
 ```
 
 ```json
-{}
+[]
 ```
-

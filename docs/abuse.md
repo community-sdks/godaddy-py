@@ -1,84 +1,136 @@
 # AbuseService
 
-Abuse reporting and ticket lookup endpoints for phishing, malware, and related investigations.
-
 ## Accessor
 
 ```python
 service = client.abuse()
 ```
 
-## Endpoints
+## Method Index
+
+- `get_tickets`: `GetTicketsResponse`
+- `create_ticket`: `CreateTicketResponse`
+- `get_ticket_info`: `GetTicketInfoResponse`
+- `get_tickets_v2`: `GetTicketsV2Response`
+- `create_ticket_v2`: `CreateTicketV2Response`
+- `get_ticket_info_v2`: `GetTicketInfoV2Response`
 
 ### get_tickets
 
-Calls `GET /v1/abuse/tickets`.
+Returns: `GetTicketsResponse`
 
 ```python
-response = client.abuse().get_tickets('sample', True, 'sample', 'sample', 'sample', 'sample', 1, 1)
+from godaddy.dto.abuse.requests import GetTicketsRequest
+request = GetTicketsRequest(
+    type_value='value',
+    closed=True,
+    source_domain_or_ip='example.com',
+    target='value',
+)
+response = client.abuse().get_tickets(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### create_ticket
 
-Calls `POST /v1/abuse/tickets`.
+Returns: `CreateTicketResponse`
 
 ```python
-response = client.abuse().create_ticket({'sample': True})
+from godaddy.dto.abuse.requests import CreateTicketRequest
+request = CreateTicketRequest(
+    body={"key": "value"},
+)
+response = client.abuse().create_ticket(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_ticket_info
 
-Calls `GET /v1/abuse/tickets/{ticketId}`.
+Returns: `GetTicketInfoResponse`
 
 ```python
-response = client.abuse().get_ticket_info('sample')
+from godaddy.dto.abuse.requests import GetTicketInfoRequest
+request = GetTicketInfoRequest(
+    ticket_id='TCK-100001',
+)
+response = client.abuse().get_ticket_info(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_tickets_v2
 
-Calls `GET /v2/abuse/tickets`.
+Returns: `GetTicketsV2Response`
 
 ```python
-response = client.abuse().get_tickets_v2('sample', True, 'sample', 'sample', 'sample', 'sample', 1, 1)
+from godaddy.dto.abuse.requests import GetTicketsV2Request
+request = GetTicketsV2Request(
+    type_value='value',
+    closed=True,
+    source_domain_or_ip='example.com',
+    target='value',
+)
+response = client.abuse().get_tickets_v2(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### create_ticket_v2
 
-Calls `POST /v2/abuse/tickets`.
+Returns: `CreateTicketV2Response`
 
 ```python
-response = client.abuse().create_ticket_v2({'sample': True})
+from godaddy.dto.abuse.requests import CreateTicketV2Request
+request = CreateTicketV2Request(
+    body={"key": "value"},
+)
+response = client.abuse().create_ticket_v2(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_ticket_info_v2
 
-Calls `GET /v2/abuse/tickets/{ticketId}`.
+Returns: `GetTicketInfoV2Response`
 
 ```python
-response = client.abuse().get_ticket_info_v2('sample')
+from godaddy.dto.abuse.requests import GetTicketInfoV2Request
+request = GetTicketInfoV2Request(
+    ticket_id='TCK-100001',
+)
+response = client.abuse().get_ticket_info_v2(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
-

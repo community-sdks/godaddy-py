@@ -1,36 +1,56 @@
 # ParkingService
 
-Domain parking optimization and template management endpoints.
-
 ## Accessor
 
 ```python
 service = client.parking()
 ```
 
-## Endpoints
+## Method Index
+
+- `get_metrics`: `GetMetricsResponse`
+- `get_metrics_by_domain`: `GetMetricsByDomainResponse`
 
 ### get_metrics
 
-Calls `GET /v1/customers/{customerId}/parking/metrics`.
+Returns: `GetMetricsResponse`
 
 ```python
-response = client.parking().get_metrics('sample', 'sample', 'sample', 1, 1, 'header-value')
+from godaddy.dto.parking.requests import GetMetricsRequest
+request = GetMetricsRequest(
+    customer_id='123456',
+    period_start_ptz='value',
+    period_end_ptz='value',
+    limit=1,
+)
+response = client.parking().get_metrics(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_metrics_by_domain
 
-Calls `GET /v1/customers/{customerId}/parking/metricsByDomain`.
+Returns: `GetMetricsByDomainResponse`
 
 ```python
-response = client.parking().get_metrics_by_domain('sample', 'sample', 'sample', ['sample'], 'sample', 'sample', 1, 1, 'header-value')
+from godaddy.dto.parking.requests import GetMetricsByDomainRequest
+request = GetMetricsByDomainRequest(
+    customer_id='123456',
+    start_date='2024-01-01T00:00:00Z',
+    end_date='2024-01-01T00:00:00Z',
+    domains='example.com',
+)
+response = client.parking().get_metrics_by_domain(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
-

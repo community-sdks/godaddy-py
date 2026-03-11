@@ -1,9 +1,11 @@
 import json
 import time
-from typing import Any, Iterable, List, Optional, Tuple
+from typing import Any, Iterable, List, Tuple
+
 from .config import Config
 from .errors import ApiException, NotFoundException, RateLimitException, ServerException, UnauthorizedException, ValidationException
 from .http import HttpRequest, RequestsTransport
+
 
 class ApiClient:
     def __init__(self, config: Config, transport=None):
@@ -12,7 +14,7 @@ class ApiClient:
 
     @staticmethod
     def build_query_pairs(values: Iterable[Tuple[str, Any]]) -> List[Tuple[str, str]]:
-        pairs = []
+        pairs: List[Tuple[str, str]] = []
         for key, value in values:
             if value is None:
                 continue
@@ -24,10 +26,11 @@ class ApiClient:
             pairs.append((key, ApiClient.stringify(value)))
         return pairs
 
-    def request(self, method, service_base_url, path, path_params=None, query_params=None, headers=None, body=None):
+    def request(self, method, service_name, path, path_params=None, query_params=None, headers=None, body=None):
+        base_url = self._config.service_base_urls.get(service_name, self._config.base_url or Config.SANDBOX_BASE_URL)
         request = HttpRequest(
             method=method,
-            url=f"{(self._config.base_url or service_base_url).rstrip('/')}{self.interpolate_path(path, path_params or [])}",
+            url=f"{base_url.rstrip('/')}{self.interpolate_path(path, path_params or [])}",
             headers=self.build_headers(headers or [], body),
             query=self.build_query_pairs(query_params or []),
             body=body,
@@ -63,6 +66,7 @@ class ApiClient:
 
     def interpolate_path(self, path, path_params):
         from urllib.parse import quote
+
         resolved = path
         for key, value in path_params:
             if value is not None:
@@ -92,10 +96,22 @@ class ApiClient:
         return str(value)
 
     def map_exception(self, request, response):
-        args = (f"GoDaddy API request failed with status {response.status_code}", response.status_code, response.body, response.headers, request.method, request.full_url())
-        if response.status_code == 400: return ValidationException(*args)
-        if response.status_code in {401, 403}: return UnauthorizedException(*args)
-        if response.status_code == 404: return NotFoundException(*args)
-        if response.status_code == 429: return RateLimitException(*args)
-        if response.status_code >= 500: return ServerException(*args)
+        args = (
+            f"GoDaddy API request failed with status {response.status_code}",
+            response.status_code,
+            response.body,
+            response.headers,
+            request.method,
+            request.full_url(),
+        )
+        if response.status_code == 400:
+            return ValidationException(*args)
+        if response.status_code in {401, 403}:
+            return UnauthorizedException(*args)
+        if response.status_code == 404:
+            return NotFoundException(*args)
+        if response.status_code == 429:
+            return RateLimitException(*args)
+        if response.status_code >= 500:
+            return ServerException(*args)
         return ApiException(*args)

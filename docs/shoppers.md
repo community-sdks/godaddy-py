@@ -1,84 +1,135 @@
 # ShoppersService
 
-Shopper profile, account, and delegated access endpoints.
-
 ## Accessor
 
 ```python
 service = client.shoppers()
 ```
 
-## Endpoints
+## Method Index
+
+- `create_subaccount`: `CreateSubaccountResponse`
+- `get`: `GetResponse`
+- `update`: `UpdateResponse`
+- `delete`: `DeleteResponse`
+- `get_status`: `GetStatusResponse`
+- `change_password`: `ChangePasswordResponse`
 
 ### create_subaccount
 
-Calls `POST /v1/shoppers/subaccount`.
+Returns: `CreateSubaccountResponse`
 
 ```python
-response = client.shoppers().create_subaccount({'sample': True})
+from godaddy.dto.shoppers.requests import CreateSubaccountRequest
+request = CreateSubaccountRequest(
+    subaccount='value',
+)
+response = client.shoppers().create_subaccount(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get
 
-Calls `GET /v1/shoppers/{shopperId}`.
+Returns: `GetResponse`
 
 ```python
-response = client.shoppers().get({'sample': True}, ['sample'])
+from godaddy.dto.shoppers.requests import GetRequest
+request = GetRequest(
+    shopper_id='987654',
+    includes=["value"],
+)
+response = client.shoppers().get(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### update
 
-Calls `POST /v1/shoppers/{shopperId}`.
+Returns: `UpdateResponse`
 
 ```python
-response = client.shoppers().update({'sample': True}, {'sample': True})
+from godaddy.dto.shoppers.requests import UpdateRequest
+request = UpdateRequest(
+    shopper_id='987654',
+    shopper='987654',
+)
+response = client.shoppers().update(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### delete
 
-Calls `DELETE /v1/shoppers/{shopperId}`.
+Returns: `DeleteResponse`
 
 ```python
-response = client.shoppers().delete({'sample': True}, 'sample')
+from godaddy.dto.shoppers.requests import DeleteRequest
+request = DeleteRequest(
+    shopper_id='987654',
+    audit_client_ip='value',
+)
+response = client.shoppers().delete(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### get_status
 
-Calls `GET /v1/shoppers/{shopperId}/status`.
+Returns: `GetStatusResponse`
 
 ```python
-response = client.shoppers().get_status({'sample': True}, 'sample')
+from godaddy.dto.shoppers.requests import GetStatusRequest
+request = GetStatusRequest(
+    shopper_id='987654',
+    audit_client_ip='value',
+)
+response = client.shoppers().get_status(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### change_password
 
-Calls `PUT /v1/shoppers/{shopperId}/factors/password`.
+Returns: `ChangePasswordResponse`
 
 ```python
-response = client.shoppers().change_password({'sample': True}, {'sample': True})
+from godaddy.dto.shoppers.requests import ChangePasswordRequest
+request = ChangePasswordRequest(
+    shopper_id='987654',
+    secret='value',
+)
+response = client.shoppers().change_password(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
-

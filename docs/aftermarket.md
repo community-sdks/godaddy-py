@@ -1,48 +1,73 @@
 # AftermarketService
 
-Aftermarket listing and sales endpoints for secondary-market domain workflows.
-
 ## Accessor
 
 ```python
 service = client.aftermarket()
 ```
 
-## Endpoints
+## Method Index
+
+- `get_listings`: `GetListingsResponse`
+- `delete_listings`: `DeleteListingsResponse`
+- `add_expiry_listings`: `AddExpiryListingsResponse`
 
 ### get_listings
 
-Calls `GET /v1/customers/{customerId}/auctions/listings`.
+Returns: `GetListingsResponse`
 
 ```python
-response = client.aftermarket().get_listings('sample', ['sample'], ['sample'], 'sample', 'sample', 1, 1)
+from godaddy.dto.aftermarket.requests import GetListingsRequest
+request = GetListingsRequest(
+    customer_id='123456',
+    domains='example.com',
+    listing_status='ACTIVE',
+    transfer_before='value',
+)
+response = client.aftermarket().get_listings(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### delete_listings
 
-Calls `DELETE /v1/aftermarket/listings`.
+Returns: `DeleteListingsResponse`
 
 ```python
-response = client.aftermarket().delete_listings(['sample'])
+from godaddy.dto.aftermarket.requests import DeleteListingsRequest
+request = DeleteListingsRequest(
+    domains=["example.com"],
+)
+response = client.aftermarket().delete_listings(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### add_expiry_listings
 
-Calls `POST /v1/aftermarket/listings/expiry`.
+Returns: `AddExpiryListingsResponse`
 
 ```python
-response = client.aftermarket().add_expiry_listings(['sample'])
+from godaddy.dto.aftermarket.requests import AddExpiryListingsRequest
+request = AddExpiryListingsRequest(
+    expiry_listings=["value"],
+)
+response = client.aftermarket().add_expiry_listings(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
-

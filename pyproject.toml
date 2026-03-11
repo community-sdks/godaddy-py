@@ -1,20 +1,29 @@
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "community-sdks-godaddy"
-version = "1.0.0"
+version = "1.0.1"
 description = "Community GoDaddy SDK for Python"
 readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Sasa Orasanin" }
+]
 dependencies = ["requests>=2.31.0"]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
+keywords = ["godaddy", "sdk", "python", "domains", "api"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent"
+]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
+[project.urls]
+Homepage = "https://github.com/community-sdks/godaddy-py"
+Repository = "https://github.com/community-sdks/godaddy-py"
+Issues = "https://github.com/community-sdks/godaddy-py/issues"

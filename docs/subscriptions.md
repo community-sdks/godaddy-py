@@ -1,72 +1,118 @@
 # SubscriptionsService
 
-Subscription listing and management endpoints for recurring products.
-
 ## Accessor
 
 ```python
 service = client.subscriptions()
 ```
 
-## Endpoints
+## Method Index
+
+- `list`: `ListResponse`
+- `product_groups`: `ProductGroupsResponse`
+- `get`: `GetResponse`
+- `update`: `UpdateResponse`
+- `cancel`: `CancelResponse`
 
 ### list
 
-Calls `GET /v1/subscriptions`.
+Returns: `ListResponse`
 
 ```python
-response = client.subscriptions().list('header-value', 'header-value', 'header-value', ['sample'], ['sample'], 1, 1, 'sample')
+from godaddy.dto.subscriptions.requests import ListRequest
+request = ListRequest(
+    x_app_key='value',
+    x_shopper_id='987654',
+    x_market_id='abc123',
+    product_group_keys=["value"],
+)
+response = client.subscriptions().list(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### product_groups
 
-Calls `GET /v1/subscriptions/productGroups`.
+Returns: `ProductGroupsResponse`
 
 ```python
-response = client.subscriptions().product_groups('header-value', 'header-value')
+from godaddy.dto.subscriptions.requests import ProductGroupsRequest
+request = ProductGroupsRequest(
+    x_app_key='value',
+    x_shopper_id='987654',
+)
+response = client.subscriptions().product_groups(request)
 ```
 
 ```json
-{}
-```
-
-### cancel
-
-Calls `DELETE /v1/subscriptions/{subscriptionId}`.
-
-```python
-response = client.subscriptions().cancel({'sample': True}, 'header-value', 'header-value')
-```
-
-```json
-{}
+[]
 ```
 
 ### get
 
-Calls `GET /v1/subscriptions/{subscriptionId}`.
+Returns: `GetResponse`
 
 ```python
-response = client.subscriptions().get({'sample': True}, 'header-value', 'header-value')
+from godaddy.dto.subscriptions.requests import GetRequest
+request = GetRequest(
+    x_app_key='value',
+    x_shopper_id='987654',
+    subscription_id='abc123',
+)
+response = client.subscriptions().get(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
 ### update
 
-Calls `PATCH /v1/subscriptions/{subscriptionId}`.
+Returns: `UpdateResponse`
 
 ```python
-response = client.subscriptions().update({'sample': True}, 'header-value', {'sample': True}, 'header-value')
+from godaddy.dto.subscriptions.requests import UpdateRequest
+request = UpdateRequest(
+    x_app_key='value',
+    x_shopper_id='987654',
+    subscription_id='abc123',
+    subscription='value',
+)
+response = client.subscriptions().update(request)
 ```
 
 ```json
-{}
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
 ```
 
+### cancel
+
+Returns: `CancelResponse`
+
+```python
+from godaddy.dto.subscriptions.requests import CancelRequest
+request = CancelRequest(
+    x_app_key='value',
+    x_shopper_id='987654',
+    subscription_id='abc123',
+)
+response = client.subscriptions().cancel(request)
+```
+
+```json
+{
+  "message": "Request completed successfully",
+  "code": "SUCCESS"
+}
+```
